@@ -1,7 +1,7 @@
 app.controller('listController',
-  ['$scope', '$location', 'userFactory','$routeParams',
+  ['$scope', '$rootScope', '$location', 'userFactory','$routeParams',
 
-    function($scope, $location, userFactory, $routeParams) {
+    function($scope, $rootScope, $location, userFactory, $routeParams) {
 
     $scope.getAllBuckets = function() {
       var taggee = $scope.user;
@@ -10,12 +10,26 @@ app.controller('listController',
           bucket.createdAt = moment(bucket.createdAt).format("MMM DDD, YYYY");
         });
 
+        // DONE
         $scope.buckets1 = buckets.filter(function(bucket){
-          return bucket.tagger && bucket.tagger === $scope.user._id;
+          var isTagger = bucket.tagger && bucket.tagger._id === $scope.user._id;
+          var isTaggee = bucket.taggee && bucket.taggee._id === $scope.user._id;
+          // DONE
+          if (isTagger || isTaggee) {
+            return bucket.state === true;
+          }
+          return false;
         })
 
+        // PENDING
         $scope.buckets2 = buckets.filter(function(bucket){
-          return bucket.taggee && bucket.taggee === $scope.user._id;
+          var isTagger = bucket.tagger && bucket.tagger._id === $scope.user._id;
+          var isTaggee = bucket.taggee && bucket.taggee._id === $scope.user._id;
+          // PENDING
+          if (isTagger || isTaggee) {
+            return bucket.state === false;
+          }
+          return false;
         })
       })
     }
@@ -26,6 +40,17 @@ app.controller('listController',
         $scope.user = user;
       });
     }
+
+    $scope.logout = function() {
+      console.log('User logged out');
+      $rootScope.loggedUser = false;
+    }
+
+    $scope.goToDashboard = function (user) {
+      console.log('$scope.goToDashboard');
+      var url = '/dashboard/';
+      $location.url(url);
+    };
 
     var init = function () {
       console.log('init');

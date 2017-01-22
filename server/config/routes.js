@@ -12,11 +12,4 @@ module.exports = function(app) {
   app.post('/buckets', buckets.create);
   app.get('/buckets/:id', buckets.toggle);
   app.get('/buckets', buckets.get);
-
-
-
-  // app.get('/questions', questions.index);
-  // app.get('/questions/:id', questions.show);
-  // app.post('/answers/:id', answers.create);
-  // app.put('/answers/:id',answers.update);
 }

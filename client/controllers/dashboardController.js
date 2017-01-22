@@ -91,6 +91,12 @@ app.controller('dashboardController',
       $location.url(url);
     };
 
+    $scope.goToDashboard = function (user) {
+      console.log('$scope.goToDashboard');
+      var url = '/dashboard/';
+      $location.url(url);
+    };
+
     $scope.getAllBuckets = function() {
       var taggee = $scope.user;
       userFactory.getAllBuckets(taggee.name, function(buckets) {
@@ -98,12 +104,14 @@ app.controller('dashboardController',
           bucket.createdAt = moment(bucket.createdAt).format("MMM DDD, YYYY");
         });
 
+        //tagger
         $scope.buckets1 = buckets.filter(function(bucket){
-          return bucket.tagger && bucket.tagger === $scope.user._id;
+          return bucket.tagger && bucket.tagger._id === $scope.user._id;
         })
 
+        // taggee
         $scope.buckets2 = buckets.filter(function(bucket){
-          return bucket.taggee && bucket.taggee === $scope.user._id;
+          return bucket.taggee && bucket.taggee._id === $scope.user._id;
         })
       })
     }

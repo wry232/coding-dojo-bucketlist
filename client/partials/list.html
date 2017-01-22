@@ -5,8 +5,10 @@
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#/logout">Logout</a></li>
+      <li class="active">
+        <a href="#/dashboard" ng-click="goToUserDashboard()">Home</a>
+      </li>
+      <li><a href="#/logout" ng-click="logout()">Logout</a></li>
     </ul>
   </div>
 
@@ -22,7 +24,7 @@
         readonly
         disabled
       >
-      {{user.name}} | {{bucket.title}} | {{bucket.description}}
+      {{bucket.tagger.name}} | {{bucket.title}} | {{bucket.description}}
       -- {{bucket.createdAt}}
     </li>
 
@@ -36,7 +38,7 @@
         readonly
         disabled
       >
-      {{user.name}} | {{bucket.title}} | {{bucket.description}}
+      {{bucket.tagger.name}} | {{bucket.title}} | {{bucket.description}}
       -- {{bucket.createdAt}}
     </li>
   </ul>
