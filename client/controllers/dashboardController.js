@@ -59,13 +59,12 @@ app.controller('dashboardController',
         return;
       }
 
-      if ($scope.taggee === undefined) {
-        alert('Must tag a friend');
-        return;
-      }
-
-
       // check taggee is available or not
+      // if ($scope.taggee === undefined) {
+      //   alert('Must tag a friend');
+      //   return;
+      // }
+
       var newBucket = angular.extend({}, {
         tagger: $scope.user,
         taggee: $scope.taggee,
@@ -95,6 +94,10 @@ app.controller('dashboardController',
     $scope.getAllBuckets = function() {
       var taggee = $scope.user;
       userFactory.getAllBuckets(taggee.name, function(buckets) {
+        buckets.forEach(function(bucket) {
+          bucket.createdAt = moment(bucket.createdAt).format("MMM DDD, YYYY");
+        });
+
         $scope.buckets1 = buckets.filter(function(bucket){
           return bucket.tagger && bucket.tagger === $scope.user._id;
         })

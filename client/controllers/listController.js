@@ -6,6 +6,10 @@ app.controller('listController',
     $scope.getAllBuckets = function() {
       var taggee = $scope.user;
       userFactory.getAllBuckets(taggee.name, function(buckets) {
+        buckets.forEach(function(bucket) {
+          bucket.createdAt = moment(bucket.createdAt).format("MMM DDD, YYYY");
+        });
+
         $scope.buckets1 = buckets.filter(function(bucket){
           return bucket.tagger && bucket.tagger === $scope.user._id;
         })

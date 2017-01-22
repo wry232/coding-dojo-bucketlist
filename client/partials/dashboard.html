@@ -24,7 +24,7 @@
       ng-options="u.name for u in users | filter: removeUserSelf">
     </select>
 
-    <input
+    <input class="btn btn-primary btn-xs"
       type="submit"
       ng-click="createNewBucket()"
       value="Add to List">
@@ -59,7 +59,7 @@
   </ul>
 
 
-  <h4>List of others:</h4>
+  <h4>List of other users(Click to view profile)</h4>
   <ul>
     <li ng-repeat="u in users"
         ng-if="u.name != user.name"
